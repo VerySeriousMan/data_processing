@@ -1,3 +1,5 @@
 visible='sunnyaiot'
+dedup_cover='false'
 space_enabled='false'
-xjd='false'
+IDcard='false'
+project_name='face_and_palm_live'

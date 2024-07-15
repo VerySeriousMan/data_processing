@@ -4,7 +4,7 @@ Project Name: Shortcut_keys
 File Created: 2024.07.04
 Author: ZhangYuetao
 File Name: config.py
-last renew 2024.07.04
+last renew 2024.07.09
 """
 
 import os
@@ -13,8 +13,10 @@ import toml
 # 定义默认参数值
 DEFAULT_CONFIG = {
     'visible': 'outside',
+    'dedup_cover': 'false',
     'space_enabled': 'false',
-    'xjd': 'true'
+    'IDcard': 'true',
+    'project_name': 'face_and_palm_live'
 }
 
 CONFIG_FILE = r'settings/setting.toml'
