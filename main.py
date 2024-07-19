@@ -4,16 +4,17 @@ Project Name: data_processing
 File Created: 2023.12.18
 Author: ZhangYuetao
 File Name: main.py
-last renew 2024.07.15
+last renew 2024.07.19
 """
 
 import sys
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
+from data_processing import *
 import qt_material
 
-from data_processing import *
-from utils import creat_txt, change_settings, classify_id, change_xjd, create_dir_name, get_wrong_paths_txt
+
+from utils import creat_txt, change_settings, classify_id, change_IDcard, create_dir_name, get_wrong_paths_txt
 import config
 from pic_dedup import dedup
 from rework_main import ReworkWindow
@@ -24,7 +25,7 @@ class MyClass(QMainWindow, Ui_MainWindow):
         super(MyClass, self).__init__(parent)
 
         self.setupUi(self)
-        self.setWindowTitle("数据预处理软件V1.4(beta)")
+        self.setWindowTitle("数据预处理软件V1.4(beta4)")
         self.setWindowIcon(QtGui.QIcon("xey.ico"))
 
         self.dir_path = None
@@ -48,13 +49,22 @@ class MyClass(QMainWindow, Ui_MainWindow):
         self.front_line.textChanged.connect(self.data_classify_info_label.clear)
         self.old_setting_line.textChanged.connect(self.attribute_change_info_label.clear)
         self.new_setting_line.textChanged.connect(self.attribute_change_info_label.clear)
+        self.process_tabWidget.currentChanged.connect(self.info_label_clear)
 
         self.config_data = config.load_config()
 
         if self.config_data['visible'] != 'sunnyaiot':
-            self.dedup_tab.hide()
-            self.data_classify_tab.hide()
-            self.create_count_tab.hide()
+            # 获取选项卡的索引
+            dedup_index = self.process_tabWidget.indexOf(self.dedup_tab)
+            classify_index = self.process_tabWidget.indexOf(self.data_classify_tab)
+            count_index = self.process_tabWidget.indexOf(self.create_count_tab)
+
+            # 按照索引从大到小排序
+            indices = sorted([dedup_index, classify_index, count_index], reverse=True)
+
+            # 移除选项卡
+            for index in indices:
+                self.process_tabWidget.removeTab(index)
 
     def open_dir(self):
         dir_path = QFileDialog.getExistingDirectory(self)
@@ -66,7 +76,7 @@ class MyClass(QMainWindow, Ui_MainWindow):
             if self.config_data['space_enabled'] == 'true':
                 change_settings(self.dir_path, ' ', '')
             if self.config_data['IDcard'] == 'true':
-                change_xjd(self.dir_path)
+                change_IDcard(self.dir_path)
 
     def open_compare_dir(self):
         dir_path = QFileDialog.getExistingDirectory(self)
@@ -116,26 +126,41 @@ class MyClass(QMainWindow, Ui_MainWindow):
         self.open_compare_dir_info_label.clear()
 
     def dedup_images(self):
-        max_distance_threshold = self.distance_line.text() if self.distance_line.text() else 0
-        output_path = create_dir_name('去重后图像', 'dedup_images')
+        similar_percent = int(self.distance_line.text()) if self.distance_line.text() else 100
         dedup_cover = self.config_data['dedup_cover']
+        if dedup_cover == 'false':
+            output_path = create_dir_name('去重后图像', 'dedup_images')
+        else:
+            output_path = ''
         if self.compare_checkBox.isChecked():
             if not self.compare_dir_path:
                 self.info_label.setText('未导入对比文件夹')
                 return
-        dedup(self.dir_path, self.compare_dir_path, output_path, max_distance_threshold, dedup_cover)
+        error_list = dedup(self.dir_path, self.compare_dir_path, output_path, similar_percent, dedup_cover)
         self.dedup_info_label.setText('去重完毕')
+
+        if error_list:
+            error_message = '\n'.join(error_list)
+            self.dedup_info_label.setText(f'去重完毕，存在以下错误:\n{error_message}')
 
     def data_check(self):
         if self.config_data['space_enabled'] == 'true':
             change_settings(self.dir_path, ' ', '')
         if self.config_data['IDcard'] == 'true':
-            change_xjd(self.dir_path)
+            change_IDcard(self.dir_path)
         self.wrong_txt_path = get_wrong_paths_txt(self.dir_path, '问题数据', self.config_data['project_name'])
         if not self.wrong_txt_path:
             self.wrong_data_processing_info_label.setText('检查完毕,无错误数据')
         else:
             self.wrong_data_processing_info_label.setText('检查完毕')
+
+    def info_label_clear(self):
+        self.open_compare_dir_info_label.clear()
+        self.dedup_info_label.clear()
+        self.data_classify_info_label.clear()
+        self.create_count_info_label.clear()
+        self.attribute_change_info_label.clear()
+        self.wrong_data_processing_info_label.clear()
 
     def open_rework_window(self):
         self.rework_window = ReworkWindow(txt_path=self.wrong_txt_path, project_name=self.config_data['project_name'])

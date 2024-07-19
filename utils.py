@@ -4,7 +4,7 @@ Project Name: data_processing
 File Created: 2024.07.03
 Author: ZhangYuetao
 File Name: utils.py
-last renew: 2024.07.15
+last renew: 2024.07.16
 """
 import json
 import os
@@ -51,14 +51,14 @@ def move_folder_contents(old_path, new_path):
     shutil.rmtree(old_path)
 
 
-def change_xjd(dir_path):
-    for filename in os.listdir(dir_path):
-        if filename.lower().startswith('xjd') and 'x' in filename[3:]:
-            change_files(os.path.join(dir_path, filename), filename[3:], filename[3:].replace('x', 'X'))
+def change_IDcard(dir_path):
+    for dirname in os.listdir(dir_path):
+        if dirname[-1] == 'x':
+            new_dirname = dirname[:-1] + 'X'
+            change_files(os.path.join(dir_path, dirname), dirname, new_dirname)
 
-            new_filename = filename.replace(filename[3:], filename[3:].replace('x', 'X'))
-            new_path = os.path.join(dir_path, new_filename)
-            old_path = os.path.join(dir_path, filename)
+            new_path = os.path.join(dir_path, new_dirname)
+            old_path = os.path.join(dir_path, dirname)
 
             if os.path.exists(new_path):
                 move_folder_contents(old_path, new_path)
@@ -69,11 +69,11 @@ def change_xjd(dir_path):
 def change_settings(dir_path, old_setting_line, new_setting_line):
     change_files(dir_path, old_setting_line, new_setting_line)
 
-    for filename in os.listdir(dir_path):
-        if old_setting_line in filename:
-            new_filename = filename.replace(old_setting_line, new_setting_line)
-            new_path = os.path.join(dir_path, new_filename)
-            old_path = os.path.join(dir_path, filename)
+    for dirname in os.listdir(dir_path):
+        if old_setting_line in dirname:
+            new_dirname = dirname.replace(old_setting_line, new_setting_line)
+            new_path = os.path.join(dir_path, new_dirname)
+            old_path = os.path.join(dir_path, dirname)
 
             if os.path.exists(new_path):
                 move_folder_contents(old_path, new_path)
@@ -98,7 +98,8 @@ def creat_txt(dir_path, output_path):
         image_paths.extend(os.path.join(root, file) for file in files)
 
     with open(txt_path, mode='w', encoding='utf-8') as txt:
-        txt.writelines(path.replace('\\', '/') + '\n' for path in image_paths)
+        for path in image_paths:
+            txt.writelines(path + '\n')
 
 
 def get_id(filename: str, front_line, back_line):
@@ -197,7 +198,6 @@ def get_batch_files(file, wrong_lines, project_name):
     file_cleaned = remove_patterns(file, res)
     for line in wrong_lines:
         if file_cleaned == remove_patterns(line, res):
-            line = line.replace('\\', '/')
             batch_files.append(line)
     return batch_files
 
