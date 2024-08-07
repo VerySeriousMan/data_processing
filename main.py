@@ -4,7 +4,7 @@ Project Name: data_processing
 File Created: 2023.12.18
 Author: ZhangYuetao
 File Name: main.py
-last renew 2024.07.19
+last renew 2024.08.07
 """
 
 import sys
@@ -25,7 +25,7 @@ class MyClass(QMainWindow, Ui_MainWindow):
         super(MyClass, self).__init__(parent)
 
         self.setupUi(self)
-        self.setWindowTitle("数据预处理软件V1.4(beta4)")
+        self.setWindowTitle("数据预处理软件V1.4.1")
         self.setWindowIcon(QtGui.QIcon("xey.ico"))
 
         self.dir_path = None
@@ -52,6 +52,7 @@ class MyClass(QMainWindow, Ui_MainWindow):
         self.process_tabWidget.currentChanged.connect(self.info_label_clear)
 
         self.config_data = config.load_config()
+        self.file_path_lable.setText('请先点击’选择文件夹’按钮选择需要处理的文件夹')
 
         if self.config_data['visible'] != 'sunnyaiot':
             # 获取选项卡的索引
@@ -70,7 +71,7 @@ class MyClass(QMainWindow, Ui_MainWindow):
         dir_path = QFileDialog.getExistingDirectory(self)
         if dir_path:
             self.dir_path = dir_path
-            self.file_path_lable.setText(self.dir_path)
+            self.file_path_lable.setText(f'已打开{self.dir_path}')
             self.process_tabWidget.setEnabled(True)
             self.reset_compare()
             if self.config_data['space_enabled'] == 'true':
@@ -173,6 +174,8 @@ class MyClass(QMainWindow, Ui_MainWindow):
 
 
 if __name__ == '__main__':
+    QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)  # 自适应适配不同分辨率
+    QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps)
     app = QApplication(sys.argv)
     myWin = MyClass()
     qt_material.apply_stylesheet(app, theme='default')

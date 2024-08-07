@@ -1,8 +1,11 @@
 # data_processing
 a software about sunny data processing
-version:V1.4
+version:V1.4.1
 
 ## 版本更新日志
+
+### V1.4.1（2024.08.07）
+**1、优化界面显示，增加界面整体自适应缩放，适配不同的分辨率，解决在高分辨率显示器下文字过小的问题**<br>
 
 ### V1.4（2024.07.19）
 **1、优化了界面与按键合理性：**<br>
