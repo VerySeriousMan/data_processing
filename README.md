@@ -1,6 +1,10 @@
 # data_processing
-a software about sunny data processing
-version:V1.4.1
+- **Version**: V1.1.1
+
+## 作者
+
+- **Author**: Zhang Yuetao
+- **GitHub**: [VerySeriousMan](https://github.com/VerySeriousMan)
 
 ## 版本更新日志
 
