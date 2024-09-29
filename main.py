@@ -4,7 +4,7 @@ Project Name: data_processing
 File Created: 2023.12.18
 Author: ZhangYuetao
 File Name: main.py
-last renew 2024.08.07
+last renew 2024.09.29
 """
 
 import sys
@@ -14,18 +14,27 @@ from data_processing import *
 import qt_material
 
 
-from utils import creat_txt, change_settings, classify_id, change_IDcard, create_dir_name, get_wrong_paths_txt
+import utils
 import config
 from pic_dedup import dedup
 from rework_main import ReworkWindow
 
 
 class MyClass(QMainWindow, Ui_MainWindow):
+    # 定义默认参数值
+    DEFAULT_CONFIG = {
+        'visible': 'outside',
+        'dedup_cover': 'false',
+        'space_enabled': 'false',
+        'IDcard': 'true',
+        'project_name': 'face_and_palm_live'
+    }
+
     def __init__(self, parent=None):
         super(MyClass, self).__init__(parent)
 
         self.setupUi(self)
-        self.setWindowTitle("数据预处理软件V1.4.1")
+        self.setWindowTitle("数据预处理软件V1.5(beta)")
         self.setWindowIcon(QtGui.QIcon("xey.ico"))
 
         self.dir_path = None
@@ -42,6 +51,7 @@ class MyClass(QMainWindow, Ui_MainWindow):
         self.data_check_button.clicked.connect(self.data_check)
         self.compare_checkBox.clicked.connect(self.check_compare_checkbox)
         self.change_wrong_attribute_button.clicked.connect(self.open_rework_window)
+        self.add_watermark_button.clicked.connect(self.add_watermarks)
 
         self.process_tabWidget.setEnabled(False)
 
@@ -51,17 +61,18 @@ class MyClass(QMainWindow, Ui_MainWindow):
         self.new_setting_line.textChanged.connect(self.attribute_change_info_label.clear)
         self.process_tabWidget.currentChanged.connect(self.info_label_clear)
 
-        self.config_data = config.load_config()
+        self.config_data = config.load_config(r'settings/setting.toml', self.DEFAULT_CONFIG)
         self.file_path_lable.setText('请先点击’选择文件夹’按钮选择需要处理的文件夹')
 
         if self.config_data['visible'] != 'sunnyaiot':
             # 获取选项卡的索引
             dedup_index = self.process_tabWidget.indexOf(self.dedup_tab)
             classify_index = self.process_tabWidget.indexOf(self.data_classify_tab)
+            watermark_index = self.process_tabWidget.indexOf(self.watermark_tab)
             count_index = self.process_tabWidget.indexOf(self.create_count_tab)
 
             # 按照索引从大到小排序
-            indices = sorted([dedup_index, classify_index, count_index], reverse=True)
+            indices = sorted([dedup_index, classify_index, watermark_index, count_index], reverse=True)
 
             # 移除选项卡
             for index in indices:
@@ -75,9 +86,9 @@ class MyClass(QMainWindow, Ui_MainWindow):
             self.process_tabWidget.setEnabled(True)
             self.reset_compare()
             if self.config_data['space_enabled'] == 'true':
-                change_settings(self.dir_path, ' ', '')
+                utils.change_settings(self.dir_path, ' ', '')
             if self.config_data['IDcard'] == 'true':
-                change_IDcard(self.dir_path)
+                utils.change_IDcard(self.dir_path)
 
     def open_compare_dir(self):
         dir_path = QFileDialog.getExistingDirectory(self)
@@ -92,7 +103,7 @@ class MyClass(QMainWindow, Ui_MainWindow):
         if not (is_valid_input(self.front_line.text()) and is_valid_input(self.back_line.text())):
             self.info_label.setText('输入错误，请输入数字或为空')
             return
-        classify_id(self.dir_path, self.front_line.text(), self.back_line.text())
+        utils.classify_id(self.dir_path, self.front_line.text(), self.back_line.text())
 
         self.process_tabWidget.setEnabled(False)
         self.file_path_lable.setText('分类完成，请打开新的文件夹')
@@ -105,11 +116,11 @@ class MyClass(QMainWindow, Ui_MainWindow):
         if not self.old_setting_line.text() or not self.new_setting_line.text():
             self.attribute_change_info_label.setText('属性不能为空')
             return
-        change_settings(self.dir_path, self.old_setting_line.text(), self.new_setting_line.text())
+        utils.change_settings(self.dir_path, self.old_setting_line.text(), self.new_setting_line.text())
         self.attribute_change_info_label.setText('修改完成')
 
     def get_txt(self):
-        creat_txt(self.dir_path, '数据地址文档')
+        utils.creat_txt(self.dir_path, '数据地址文档')
         filename = self.dir_path.split('/')[-1] + '.txt'
         self.create_count_info_label.setText(f'已生成{filename}')
 
@@ -130,7 +141,7 @@ class MyClass(QMainWindow, Ui_MainWindow):
         similar_percent = int(self.distance_line.text()) if self.distance_line.text() else 100
         dedup_cover = self.config_data['dedup_cover']
         if dedup_cover == 'false':
-            output_path = create_dir_name('去重后图像', 'dedup_images')
+            output_path = utils.create_dir_name('去重后图像', 'dedup_images')
         else:
             output_path = ''
         if self.compare_checkBox.isChecked():
@@ -146,14 +157,19 @@ class MyClass(QMainWindow, Ui_MainWindow):
 
     def data_check(self):
         if self.config_data['space_enabled'] == 'true':
-            change_settings(self.dir_path, ' ', '')
+            utils.change_settings(self.dir_path, ' ', '')
         if self.config_data['IDcard'] == 'true':
-            change_IDcard(self.dir_path)
-        self.wrong_txt_path = get_wrong_paths_txt(self.dir_path, '问题数据', self.config_data['project_name'])
+            utils.change_IDcard(self.dir_path)
+        self.wrong_txt_path = utils.get_wrong_paths_txt(self.dir_path, '问题数据', self.config_data['project_name'])
         if not self.wrong_txt_path:
             self.wrong_data_processing_info_label.setText('检查完毕,无错误数据')
         else:
             self.wrong_data_processing_info_label.setText('检查完毕')
+
+    def add_watermarks(self):
+        extra_info = self.extra_info_line.text()
+        add_watermark(self.dir_path, extra_info)
+        self.watermark_info_label.setText('水印添加完成')
 
     def info_label_clear(self):
         self.open_compare_dir_info_label.clear()
@@ -162,6 +178,7 @@ class MyClass(QMainWindow, Ui_MainWindow):
         self.create_count_info_label.clear()
         self.attribute_change_info_label.clear()
         self.wrong_data_processing_info_label.clear()
+        self.watermark_info_label.clear()
 
     def open_rework_window(self):
         self.rework_window = ReworkWindow(txt_path=self.wrong_txt_path, project_name=self.config_data['project_name'])
@@ -176,7 +193,11 @@ class MyClass(QMainWindow, Ui_MainWindow):
 if __name__ == '__main__':
     QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)  # 自适应适配不同分辨率
     QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps)
+
     app = QApplication(sys.argv)
+
+    from watermark import add_watermark  # 延迟导入，解决opencv与pyqt线程冲突问题
+
     myWin = MyClass()
     qt_material.apply_stylesheet(app, theme='default')
     myWin.show()

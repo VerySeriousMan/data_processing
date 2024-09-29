@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>561</width>
-    <height>375</height>
+    <width>650</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -155,7 +155,7 @@
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="3,5">
+         <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="3,7">
           <item>
            <widget class="QPushButton" name="change_setting_button">
             <property name="sizePolicy">
@@ -402,7 +402,7 @@
       </widget>
       <widget class="QWidget" name="data_classify_tab">
        <attribute name="title">
-        <string>测试/训练集合划分</string>
+        <string>测试/训练集划分</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_5" stretch="2,3,3">
         <item>
@@ -494,6 +494,96 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="watermark_tab">
+       <attribute name="title">
+        <string>水印添加</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_9" stretch="2,3,3">
+        <item>
+         <widget class="QLabel" name="label_8">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>水印名为导入文件夹下子文件夹名+额外文字（可选），点击添加水印进行图片批量添加水印</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="2,3,5">
+          <item>
+           <widget class="QLabel" name="label_6">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>水印额外文字</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="extra_info_line">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="3,5">
+          <item>
+           <widget class="QPushButton" name="add_watermark_button">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>添加水印</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="watermark_info_label">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="create_count_tab">
        <attribute name="title">
         <string>生成路径txt</string>
@@ -542,7 +632,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>561</width>
+     <width>650</width>
      <height>23</height>
     </rect>
    </property>

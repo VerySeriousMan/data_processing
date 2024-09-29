@@ -1,0 +1,8 @@
+org='bottom_left, 10, 10'  # 水印位置与距离边缘像素值
+fontFace='cv2.FONT_HERSHEY_SIMPLEX'  # 字体类型
+fontScale='1'  # 字体缩放比例
+color='(255, 0, 0)'  # 字体颜色（BGR格式）
+thickness='2'  # 字体粗细
+lineType='cv2.LINE_AA'  # 线条类型，使用抗锯齿
+alpha='0.9'  # 水印不透明度，值范围0（完全透明）到1（完全不透明）
+num_way='all_nums'  #尾数格式（no_nums, all_nums, each_nums）

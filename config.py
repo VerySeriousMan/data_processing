@@ -4,44 +4,27 @@ Project Name: Shortcut_keys
 File Created: 2024.07.04
 Author: ZhangYuetao
 File Name: config.py
-last renew 2024.07.09
+last renew 2024.09.27
 """
 
 import os
 import toml
 
-# 定义默认参数值
-DEFAULT_CONFIG = {
-    'visible': 'outside',
-    'dedup_cover': 'false',
-    'space_enabled': 'false',
-    'IDcard': 'true',
-    'project_name': 'face_and_palm_live'
-}
 
-CONFIG_FILE = r'settings/setting.toml'
-
-
-def load_config():
+def load_config(filepath, default):
     # 尝试读取现有的 TOML 文件
     try:
-        if os.path.exists(CONFIG_FILE):
-            with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
+        if os.path.exists(filepath):
+            with open(filepath, 'r', encoding='utf-8') as f:
                 config = toml.load(f)
         else:
-            config = DEFAULT_CONFIG
+            config = default
     except (FileNotFoundError, toml.TomlDecodeError):
-        config = DEFAULT_CONFIG
+        config = default
 
     # 检查是否缺少必要的参数，如果缺少则更新为默认值
-    for key, value in DEFAULT_CONFIG.items():
+    for key, value in default.items():
         if key not in config:
             config[key] = value
 
     return config
-
-
-def save_config(config):
-    # 将更新后的配置写入 TOML 文件
-    with open(CONFIG_FILE, 'w') as f:
-        toml.dump(config, f)
