@@ -4,7 +4,7 @@ Project Name: data_processing
 File Created: 2024.07.10
 Author: ZhangYuetao
 File Name: rework_main.py
-last renew: 2024.07.12
+Update: 2024.07.12
 """
 import os
 from PyQt5.QtWidgets import QWidget, QFileDialog

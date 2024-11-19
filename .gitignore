@@ -3,6 +3,13 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+.idea/
+settings/.secret.toml
+settings/attribute_name.json
+settings/batch_ignore.json
+settings/testID.txt
+settings/trainID.txt
+
 # C extensions
 *.so
 

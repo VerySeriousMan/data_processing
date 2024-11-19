@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>650</width>
+    <width>604</width>
     <height>400</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Noto Sans CJK SC Medium</family>
+    <pointsize>9</pointsize>
+   </font>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -17,7 +23,13 @@
    <enum>Qt::LeftToRight</enum>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_8" stretch="2,7">
+   <property name="font">
+    <font>
+     <family>Noto Sans CJK SC Medium</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_8" stretch="4,1,16">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="3,7">
       <item>
@@ -27,6 +39,12 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Noto Sans CJK SC</family>
+          <pointsize>9</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>选择文件夹</string>
@@ -40,6 +58,12 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Noto Sans CJK SC</family>
+          <pointsize>9</pointsize>
+         </font>
         </property>
         <property name="text">
          <string/>
@@ -55,7 +79,40 @@
      </layout>
     </item>
     <item>
+     <spacer name="verticalSpacer_8">
+      <property name="font">
+       <font>
+        <family>Noto Sans CJK SC Medium</family>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
      <widget class="QTabWidget" name="process_tabWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <family>Noto Sans CJK SC Medium</family>
+        <pointsize>9</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="tabletTracking">
        <bool>false</bool>
       </property>
@@ -64,6 +121,9 @@
       </property>
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
       </property>
       <property name="tabPosition">
        <enum>QTabWidget::North</enum>
@@ -87,14 +147,43 @@
        <bool>false</bool>
       </property>
       <widget class="QWidget" name="attribute_change_tab">
+       <property name="font">
+        <font>
+         <family>Noto Sans CJK SC</family>
+         <pointsize>9</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
        <attribute name="title">
         <string>属性修改</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout" stretch="2,3,3">
+       <layout class="QVBoxLayout" name="verticalLayout" stretch="2,3,1,3">
         <item>
          <widget class="QLabel" name="label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Noto Sans CJK SC Medium</family>
+            <pointsize>9</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+            <kerning>true</kerning>
+           </font>
+          </property>
           <property name="text">
-           <string>请输入需要修改的原属性与修改后的属性，点击开始按钮后批量修改（输入值不能为空）</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#909090;&quot;&gt;请输入需要修改的原属性与修改后的属性，点击开始按钮后批量修改（输入值不能为空）&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="scaledContents">
+           <bool>false</bool>
+          </property>
+          <property name="textInteractionFlags">
+           <set>Qt::LinksAccessibleByMouse</set>
           </property>
          </widget>
         </item>
@@ -107,6 +196,14 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>Noto Sans CJK SC</family>
+              <pointsize>9</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
             </property>
             <property name="text">
              <string>请输入原属性</string>
@@ -124,6 +221,14 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="font">
+             <font>
+              <family>Noto Sans CJK SC</family>
+              <pointsize>9</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
            </widget>
           </item>
           <item>
@@ -133,6 +238,14 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>Noto Sans CJK SC</family>
+              <pointsize>9</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
             </property>
             <property name="text">
              <string>请输入新属性</string>
@@ -150,9 +263,38 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="font">
+             <font>
+              <family>Noto Sans CJK SC</family>
+              <pointsize>9</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
            </widget>
           </item>
          </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_2">
+          <property name="font">
+           <font>
+            <family>Noto Sans CJK SC</family>
+            <pointsize>9</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="3,7">
@@ -164,6 +306,14 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="font">
+             <font>
+              <family>Noto Sans CJK SC</family>
+              <pointsize>9</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
             <property name="text">
              <string>开始修改</string>
             </property>
@@ -171,6 +321,14 @@
           </item>
           <item>
            <widget class="QLabel" name="attribute_change_info_label">
+            <property name="font">
+             <font>
+              <family>Noto Sans CJK SC</family>
+              <pointsize>9</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -184,11 +342,11 @@
        <attribute name="title">
         <string>数据检查与纠错</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_6" stretch="2,3,3">
+       <layout class="QVBoxLayout" name="verticalLayout_6" stretch="2,3,1,3">
         <item>
          <widget class="QLabel" name="label_4">
           <property name="text">
-           <string>点击数据检查按钮会检查是否存在格式错误数据，可点击错误数据处理进行修改</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#909090;&quot;&gt;点击数据检查按钮会检查是否存在格式错误数据，可点击错误数据处理进行修改&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -223,6 +381,19 @@
          </layout>
         </item>
         <item>
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="3,5">
           <item>
            <widget class="QPushButton" name="change_wrong_attribute_button">
@@ -252,7 +423,7 @@
        <attribute name="title">
         <string>图像去重</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_4" stretch="5,3">
+       <layout class="QVBoxLayout" name="verticalLayout_4" stretch="5,1,3">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,1">
           <item>
@@ -260,7 +431,7 @@
             <item>
              <widget class="QLabel" name="label_2">
               <property name="text">
-               <string>请输入相似度，100表示只删去完全相同图像</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#909090;&quot;&gt;请输入相似度，100表示只删去完全相同图像&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
              </widget>
             </item>
@@ -302,6 +473,7 @@
                 </property>
                 <property name="font">
                  <font>
+                  <family>Noto Sans CJK SC</family>
                   <pointsize>12</pointsize>
                   <weight>75</weight>
                   <bold>true</bold>
@@ -375,6 +547,19 @@
          </layout>
         </item>
         <item>
+         <spacer name="verticalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="3,5">
           <item>
            <widget class="QPushButton" name="pic_dedup_button">
@@ -404,11 +589,11 @@
        <attribute name="title">
         <string>测试/训练集划分</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_5" stretch="2,3,3">
+       <layout class="QVBoxLayout" name="verticalLayout_5" stretch="2,3,1,3">
         <item>
          <widget class="QLabel" name="label_3">
           <property name="text">
-           <string>请输入ID字段前后多余的字符数量（如dwc123456hl，前3后2），输入值为空等于输入0</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#909090;&quot;&gt;请输入ID字段前后多余的字符数量（如dwc123456hl，前3后2），输入值为空等于输入0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -469,6 +654,19 @@
          </layout>
         </item>
         <item>
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="3,5">
           <item>
            <widget class="QPushButton" name="classify_button">
@@ -498,7 +696,7 @@
        <attribute name="title">
         <string>水印添加</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_9" stretch="2,3,3">
+       <layout class="QVBoxLayout" name="verticalLayout_9" stretch="2,3,1,3">
         <item>
          <widget class="QLabel" name="label_8">
           <property name="sizePolicy">
@@ -508,7 +706,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>水印名为导入文件夹下子文件夹名+额外文字（可选），点击添加水印进行图片批量添加水印</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#909090;&quot;&gt;水印名为导入文件夹下子文件夹名+额外文字（可选），点击添加水印进行图片批量添加水印&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -524,6 +722,9 @@
             </property>
             <property name="text">
              <string>水印额外文字</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -551,6 +752,19 @@
            </spacer>
           </item>
          </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="3,5">
@@ -584,15 +798,136 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="image_pre_classify_tab">
+       <attribute name="title">
+        <string>图像预分类</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_10" stretch="2,3,1,3">
+        <item>
+         <widget class="QLabel" name="label_10">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#909090;&quot;&gt;请选择分类依据与分类个数，若按文件名分类则为选择按第几个下划线分类，可选择是否保存原文件夹格式&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_16" stretch="3,4,4,3,4">
+          <item>
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string>分类依据</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="pre_classify_comboBox">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>分类个数/下划线数</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="pre_classify_nums_spinBox">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="save_type_checkBox">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>保存原文件夹格式</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_7">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_15" stretch="3,5">
+          <item>
+           <widget class="QPushButton" name="pre_classify_button">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>开始分类</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="image_pre_classify_info_label">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="create_count_tab">
        <attribute name="title">
         <string>生成路径txt</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_7" stretch="5,3">
+       <layout class="QVBoxLayout" name="verticalLayout_7" stretch="3,3,3">
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
         <item>
          <widget class="QLabel" name="label_5">
           <property name="text">
-           <string>点击开始生成按钮，可导出当前文件夹下所有文件地址于txt中</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#909090;&quot;&gt;点击开始生成按钮，可导出当前文件夹下所有文件地址于txt中&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -632,11 +967,23 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>650</width>
+     <width>604</width>
      <height>23</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>设置</string>
+    </property>
+    <addaction name="software_update_action"/>
+   </widget>
+   <addaction name="menu"/>
   </widget>
+  <action name="software_update_action">
+   <property name="text">
+    <string>软件更新</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

@@ -4,7 +4,7 @@ Project Name: data_processing
 File Created: 2024.09.27
 Author: ZhangYuetao
 File Name: watermark.py
-last renew: 2024.09.29
+Update: 2024.10.09
 """
 
 import os
@@ -27,6 +27,15 @@ DEFAULT_CONFIG = {
 
 
 def get_position(org, offset_x, offset_y, width, height):
+    """
+    根据给定的位置参数计算水印位置
+    :param org: 水印位置的类型
+    :param offset_x: 水印相对于图像边缘的x偏移量
+    :param offset_y: 水印相对于图像边缘的y偏移量
+    :param width: 图像宽度
+    :param height: 图像高度
+    :return: 水印的坐标
+    """
     if org == "top_left":
         return offset_x, offset_y
     elif org == "top_right":
@@ -41,6 +50,12 @@ def get_position(org, offset_x, offset_y, width, height):
 
 
 def add_watermark(filepath, extra_text):
+    """
+    在指定文件夹中的图像上添加水印
+    :param filepath: 包含图像的文件夹路径
+    :param extra_text: 附加的水印文本
+    """
+    # 加载水印配置
     txt_config = config.load_config(r'settings/watermark_attr.toml', DEFAULT_CONFIG)
 
     org_str = txt_config['org']
@@ -58,15 +73,17 @@ def add_watermark(filepath, extra_text):
     num_way = str(txt_config['num_way'])
 
     add_num = 0
-    for f_filename in os.listdir(filepath):
-        path = os.path.join(filepath, f_filename)
+    # 遍历每个子文件夹
+    for first_dir in os.listdir(filepath):
+        path = os.path.join(filepath, first_dir)
         if not os.path.isdir(path):
             continue
-        mark_text = f_filename
+        mark_text = first_dir
 
         if num_way == 'each_nums':
             add_num = 0
 
+        # 遍历每个图像文件
         for root, _, files in os.walk(path):
             for file in files:
                 p_path = os.path.join(root, file)
@@ -83,6 +100,7 @@ def add_watermark(filepath, extra_text):
                 # 获取水印位置
                 org = get_position(position_type, offset_x, offset_y, width, height)
 
+                # 生成水印文本
                 if num_way == 'no_nums':
                     if extra_text:
                         text = f"{mark_text}_{extra_text}"
@@ -98,6 +116,7 @@ def add_watermark(filepath, extra_text):
                 cv2.putText(overlay, text=text, org=org, fontFace=fontFace,
                             fontScale=fontScale, color=color, thickness=thickness, lineType=lineType)
 
+                # 将水印合并到原图
                 img_with_watermark = cv2.addWeighted(overlay, alpha, img, 1, 0)
 
                 # 保存结果
