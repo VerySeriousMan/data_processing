@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>604</width>
+    <width>606</width>
     <height>400</height>
    </rect>
   </property>
@@ -177,7 +177,7 @@
            </font>
           </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#909090;&quot;&gt;请输入需要修改的原属性与修改后的属性，点击开始按钮后批量修改（输入值不能为空）&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#909090;&quot;&gt;请输入需要修改的原属性与修改后的属性，点击开始按钮后批量修改&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="scaledContents">
            <bool>false</bool>
@@ -188,7 +188,7 @@
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,3,2,3">
+         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,3,2,3,2">
           <item>
            <widget class="QLabel" name="old_setting_label">
             <property name="sizePolicy">
@@ -273,6 +273,19 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QCheckBox" name="enable_null_checkBox">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>允许空值</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
@@ -331,6 +344,9 @@
             </property>
             <property name="text">
              <string/>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -412,6 +428,9 @@
            <widget class="QLabel" name="wrong_data_processing_info_label">
             <property name="text">
              <string/>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -579,6 +598,9 @@
             <property name="text">
              <string/>
             </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
          </layout>
@@ -686,6 +708,9 @@
             <property name="text">
              <string/>
             </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
          </layout>
@@ -706,12 +731,12 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#909090;&quot;&gt;水印名为导入文件夹下子文件夹名+额外文字（可选），点击添加水印进行图片批量添加水印&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#909090;&quot;&gt;水印名为导入文件夹下第一子文件夹名+额外文字（可选），点击添加水印进行图片批量添加水印&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="2,3,5">
+         <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="2,3,3,3">
           <item>
            <widget class="QLabel" name="label_6">
             <property name="sizePolicy">
@@ -750,6 +775,19 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="watermark_param_pushButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>参数设置</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -791,6 +829,9 @@
             </property>
             <property name="text">
              <string/>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -900,6 +941,9 @@
             <property name="text">
              <string/>
             </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
          </layout>
@@ -951,6 +995,9 @@
             <property name="text">
              <string/>
             </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
          </layout>
@@ -967,8 +1014,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>604</width>
-     <height>23</height>
+     <width>606</width>
+     <height>18</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -976,12 +1023,18 @@
      <string>设置</string>
     </property>
     <addaction name="software_update_action"/>
+    <addaction name="problem_feedback_action"/>
    </widget>
    <addaction name="menu"/>
   </widget>
   <action name="software_update_action">
    <property name="text">
     <string>软件更新</string>
+   </property>
+  </action>
+  <action name="problem_feedback_action">
+   <property name="text">
+    <string>问题反馈</string>
    </property>
   </action>
  </widget>
