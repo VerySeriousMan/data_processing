@@ -7,6 +7,7 @@ __pycache__/
 settings/.secret.toml
 settings/attribute_name.json
 settings/batch_ignore.json
+settings/id_info.json
 settings/testID.txt
 settings/trainID.txt
 

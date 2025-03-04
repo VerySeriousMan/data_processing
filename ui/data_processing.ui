@@ -442,9 +442,9 @@
        <attribute name="title">
         <string>图像去重</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_4" stretch="5,1,3">
+       <layout class="QVBoxLayout" name="verticalLayout_11" stretch="5,1,3">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,1">
+         <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="5,2,3">
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_3" stretch="2,3">
             <item>
@@ -511,7 +511,23 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,2">
+           <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,1">
+            <item>
+             <widget class="QCheckBox" name="every_folder_checkBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::RightToLeft</enum>
+              </property>
+              <property name="text">
+               <string>子文件夹单独去重</string>
+              </property>
+             </widget>
+            </item>
             <item>
              <widget class="QCheckBox" name="compare_checkBox">
               <property name="sizePolicy">
@@ -537,29 +553,29 @@
               </property>
              </widget>
             </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_2" stretch="2,3">
             <item>
-             <layout class="QVBoxLayout" name="verticalLayout_2" stretch="2,3">
-              <item>
-               <widget class="QLabel" name="open_compare_dir_info_label">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="open_compare_dir_button">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="text">
-                 <string>选择对比文件夹</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             <widget class="QLabel" name="open_compare_dir_info_label">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="open_compare_dir_button">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>选择对比文件夹</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -620,7 +636,7 @@
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="4,3,4,3">
+         <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="4,3,4,3,4">
           <item>
            <widget class="QLabel" name="front_label">
             <property name="sizePolicy">
@@ -670,6 +686,19 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="fix_id_info_checkBox">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>ID信息补充</string>
             </property>
            </widget>
           </item>

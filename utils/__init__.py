@@ -7,12 +7,13 @@ Project Name: data_processing
 File Created: 2025.01.03
 Author: ZhangYuetao
 File Name: __init__.py
-Update: 2025.01.08
+Update: 2025.01.24
 """
 
 # 导入 file_utils 模块中的函数
 from .file_utils import (
     change_IDcard,
+    change_current_dir_id,
     change_files,
     change_settings,
     create_dir_name,
@@ -47,6 +48,7 @@ from .validation_utils import (
 __all__ = [
     # file_utils
     'change_IDcard',
+    'change_current_dir_id',
     'change_files',
     'change_settings',
     'create_dir_name',

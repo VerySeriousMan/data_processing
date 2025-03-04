@@ -4,7 +4,7 @@ Project Name: data_processing
 File Created: 2024.12.24
 Author: ZhangYuetao
 File Name: work_thread.py
-Update: 2025.01.08
+Update: 2025.02.21
 """
 import os
 
@@ -68,8 +68,8 @@ class WorkingThread(QThread):
         执行分类任务。
         """
         try:
-            front_line, back_line = self.args
-            core.classify_id(self.dir_path, front_line, back_line)
+            front_line, back_line, fix_type = self.args
+            core.classify_id(self.dir_path, front_line, back_line, fix_type)
             self.status_signal.emit('分类完成，请打开新的文件夹')
         except FileNotFoundError as e:
             self.status_signal.emit(f'分类失败：{str(e)}')
@@ -83,7 +83,9 @@ class WorkingThread(QThread):
         执行修改设置任务。
         """
         old_setting_line, new_setting_line = self.args
-        utils.change_settings(self.dir_path, old_setting_line, new_setting_line)
+        new_dir_path = utils.change_settings(self.dir_path, old_setting_line, new_setting_line)
+        if new_dir_path:
+            self.status_signal.emit(f'修改完成，文件夹已被修改，请打开新的文件夹{new_dir_path}')
         self.status_signal.emit('修改完成')
 
     def _get_txt(self):
@@ -99,8 +101,8 @@ class WorkingThread(QThread):
         """
         执行去重任务。
         """
-        compare_dir_path, output_path, similar_percent, dedup_cover = self.args
-        error_list = core.dedup(self.dir_path, compare_dir_path, output_path, similar_percent, dedup_cover)
+        compare_dir_path, output_path, similar_percent, dedup_cover, save_dedup_info, every_folder = self.args
+        error_list = core.dedup(self.dir_path, compare_dir_path, output_path, similar_percent, dedup_cover, save_dedup_info, every_folder)
 
         if error_list:
             error_message = '\n'.join(error_list)

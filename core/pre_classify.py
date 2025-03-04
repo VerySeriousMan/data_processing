@@ -4,15 +4,15 @@ Project Name: data_processing
 File Created: 2024.09.30
 Author: ZhangYuetao
 File Name: pre_classify.py
-Update: 2025.01.08
+Update: 2025.01.24
 """
 
 import os
 import shutil
-
-import imagehash
+from datetime import datetime
 import numpy as np
 
+import imagehash
 from PIL import Image
 
 import config
@@ -187,13 +187,14 @@ def image_classify_by_name(dir_path, line_num, save_type='original'):
                 shutil.copy(file_path, classify_path)
 
 
-def classify_id(dir_path, front_line, back_line):
+def classify_id(dir_path, front_line, back_line, fix_type):
     """
     根据ID将文件分类到测试和训练文件夹
 
     :param dir_path: 包含待分类文件的目录路径
     :param front_line: ID的前缀索引
     :param back_line: ID的后缀索引
+    :param fix_type: 是否修复ID信息
     :raises FileNotFoundError: 如果目录不存在
     :raises ValueError: 如果无法读取测试或训练ID文件
     """
@@ -216,21 +217,110 @@ def classify_id(dir_path, front_line, back_line):
         filepath = os.path.join(dir_path, filename)
 
         if back_line == 0:
-            fileid = filename[front_line:]
+            file_id = filename[front_line:]
         else:
-            fileid = filename[front_line:-back_line]
+            file_id = filename[front_line:-back_line]
+
+        if fix_type:
+            try:
+                fix_id_info(filepath, file_id)
+            except Exception:
+                raise
 
         test_path = os.path.join(dir_path + '_test', filename)
         train_path = os.path.join(dir_path + '_train', filename)
 
         # 将文件移动到对应的文件夹
         try:
-            if fileid in test_id:
+            if file_id in test_id:
                 shutil.move(filepath, test_path)
-            elif fileid in train_id:
+            elif file_id in train_id:
                 shutil.move(filepath, train_path)
         except Exception as e:
-            print(f"无法移动文件 {filename}: {str(e)}")
+            raise ValueError(f"无法移动文件 {filename}: {str(e)}")
+
+
+def change_images_id_info(dir_path, new_age, new_tall):
+    """
+    修改指定目录下文件的名称
+
+    :param dir_path: 目标目录路径
+    :param new_age: 新年龄
+    :param new_tall: 新身高
+    """
+    for root, _, files in os.walk(dir_path):
+        for filename in files:
+            attributes = filename.split('_')
+            old_age = None
+            old_tall = None
+            for attribute in attributes:
+                if attribute.startswith('a'):
+                    old_age = attribute
+                if attribute.startswith('tall'):
+                    old_tall = attribute
+
+            new_filename = filename
+            if old_age:
+                if new_age != 'aX':
+                    new_filename = new_filename.replace(old_age, new_age)
+                else:
+                    if not old_age[1:].isdigit():
+                        new_filename = new_filename.replace(old_age, new_age)
+                    else:
+                        if int(old_age[1:]) < 15:
+                            new_filename = new_filename.replace(old_age, new_age)
+            if old_tall:
+                if new_tall != 'tallX':
+                    new_filename = new_filename.replace(old_tall, new_tall)
+                else:
+                    if not old_tall[4:].isdigit():
+                        new_filename = new_filename.replace(old_tall, new_tall)
+                    else:
+                        if int(old_tall[4:]) < 100:
+                            new_filename = new_filename.replace(old_tall, new_tall)
+
+            os.rename(os.path.join(root, filename), os.path.join(root, new_filename))
+
+
+def process_id_info(id_dir_path, birth_year, height):
+    """
+    预处理个人信息并修改其文件夹
+
+    :param id_dir_path: 目标目录路径
+    :param birth_year: 出生年份
+    :param height: 身高
+    """
+    current_year = int(datetime.now().year)
+    age = 'aX'
+    tall = 'tallX'
+    if birth_year != 'X':
+        age = 'a' + str(current_year - int(birth_year))
+
+    if height != 'X':
+        tall = 'tall' + height
+
+    change_images_id_info(id_dir_path, age, tall)
+
+
+def fix_id_info(id_dir_path, file_id):
+    """
+    获取指定id的info信息并修改其文件夹对应信息
+
+    :param id_dir_path: 目标目录路径
+    :param file_id: 目标id
+    """
+    try:
+        id_info = config.load_json(config.ID_INFO_FILE)
+    except Exception:
+        raise
+
+    birth_year = 'X'
+    height = 'X'
+    if file_id in id_info:
+        birth_year = id_info[file_id].get("birth_year")
+        height = id_info[file_id].get("height")
+
+    process_id_info(id_dir_path, birth_year, height)
 
 
 if __name__ == "__main__":

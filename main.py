@@ -4,12 +4,13 @@ Project Name: data_processing
 File Created: 2023.12.18
 Author: ZhangYuetao
 File Name: main.py
-Update: 2024.12.31
+Update: 2025.02.21
 """
 
 import sys
+
+from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication
-from ui.data_processing import *
 import qt_material
 
 
@@ -21,7 +22,8 @@ if __name__ == '__main__':
 
     from ui.main.main_window import MainWindow  # 延迟导入，解决opencv与pyqt线程冲突问题
 
-    myWin = MainWindow()
+    window_title = "数据预处理软件V2.2.1"
+    myWin = MainWindow(window_title)
     qt_material.apply_stylesheet(app, theme='default')
     myWin.show()
     sys.exit(app.exec_())

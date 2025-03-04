@@ -4,9 +4,9 @@ Project Name: data_processing
 File Created: 2023.12.18
 Author: ZhangYuetao
 File Name: main_window.py
-Update: 2025.01.08
+Update: 2025.02.21
 """
-
+import os
 from functools import partial
 from collections import ChainMap
 from PyQt5.QtCore import QTimer
@@ -41,15 +41,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         animation_index (int): 动画索引，用于显示动态效果。
     """
 
-    def __init__(self, parent=None):
+    def __init__(self, window_title, parent=None):
         """
         初始化主窗口。
 
+        :param window_title: 窗口标题，由外部传入。
         :param parent: 父窗口对象，默认为 None。
         """
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
-        self.setWindowTitle("数据预处理软件V2.0")
+        self.setWindowTitle(window_title)  # 使用传入的标题
         self.setWindowIcon(QtGui.QIcon(config.ICO_FILE))
 
         self.dir_path = None
@@ -85,6 +86,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.process_tabWidget.setEnabled(False)
         self.save_type_checkBox.setChecked(True)
+        self.fix_id_info_checkBox.setChecked(False)
 
         self.back_line.textChanged.connect(self.data_classify_info_label.clear)
         self.front_line.textChanged.connect(self.data_classify_info_label.clear)
@@ -160,8 +162,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.data_classify_info_label.setText('输入错误，请输入数字或为空')
             return
 
+        if self.fix_id_info_checkBox.isChecked():
+            fix_type = True
+        else:
+            fix_type = False
+
         self.start_thread('分类中', 'classify', self.data_classify_info_label,
-                          self.front_line.text(), self.back_line.text())
+                          self.front_line.text(), self.back_line.text(), fix_type)
 
     def change_settings(self):
         """
@@ -216,9 +223,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.dedup_info_label.setText('开始去重')
         similar_percent = int(self.distance_line.text()) if self.distance_line.text() else 100
         dedup_cover = self.config_data['dedup_cover']
+        save_dedup_info = self.config_data['save_dedup_info']
+
+        every_folder = False
+        if self.every_folder_checkBox.isChecked():
+            every_folder = True
 
         if dedup_cover == 'false':
-            output_path = utils.create_dir_name('去重后图像', 'dedup_images')
+            dir_name = os.path.basename(self.dir_path)
+            output_path = utils.create_dir_name('去重后图像', dir_name, start_origen=True)
         else:
             output_path = ''
         if self.compare_checkBox.isChecked():
@@ -227,7 +240,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 return
 
         self.start_thread('去重中', 'dedup', self.dedup_info_label,
-                          self.compare_dir_path, output_path, similar_percent, dedup_cover)
+                          self.compare_dir_path, output_path, similar_percent, dedup_cover, save_dedup_info, every_folder)
 
     def data_check(self):
         """
@@ -365,9 +378,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         :param info: 动画信息。
         :param info_label: 信息标签，用于显示动画效果。
         """
-        animation_dots = '.' * self.animation_index
-        info_label.setText(f'{info}{animation_dots}')
-        self.animation_index = (self.animation_index + 1) % 4
+        current_frame = config.animation_frames[self.animation_index]
+        info_label.setText(f"{info}  {current_frame}")
+        self.animation_index = (self.animation_index + 1) % len(config.animation_frames)
 
     @staticmethod
     def update_info_label(info_label, text):

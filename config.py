@@ -4,12 +4,21 @@ Project Name: Shortcut_keys
 File Created: 2024.07.04
 Author: ZhangYuetao
 File Name: config.py
-Update: 2025.01.08
+Update: 2025.03.04
 """
 import json
 import os
 import toml
 
+
+animation_frames = [
+    "[◰   ]",
+    "[ ◳  ]",
+    "[  ◲ ]",
+    "[   ◱]",
+    "[  ◲ ]",
+    "[ ◳  ]",
+]
 
 TEST_ID_FILE = r'settings/testID.txt'
 TRAIN_ID_FILE = r'settings/trainID.txt'
@@ -21,6 +30,7 @@ SOFTWARE_INFOS_FILE = r'settings/software_infos.toml'
 
 BATCH_IGNORE_FILE = r'settings/batch_ignore.json'
 ATTRIBUTE_NAME_FILE = r'settings/attribute_name.json'
+ID_INFO_FILE = r'settings/id_info.json'
 
 ICO_FILE = r'settings/xey.ico'
 
@@ -30,6 +40,7 @@ SHARE_DIR = r'数据相关软件/数据处理软件'
 SETTING_DEFAULT_CONFIG = {
     'visible': 'outside',
     'dedup_cover': 'false',
+    'save_dedup_info': 'false',
     'watermark_cover': 'false',
     'space_enabled': 'false',
     'IDcard': 'true',
